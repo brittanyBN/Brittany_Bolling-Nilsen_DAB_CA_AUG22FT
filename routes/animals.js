@@ -25,7 +25,7 @@ exports.getAllAnimals = async () => {
 router.get('/', async function (req, res, next) {
   const animals = await animalService.get();
   const user = req.user;
-  res.render('animals', { title: 'Animals', animals: animals, user: user, size });
+  res.render('animals', { title: 'Animals', animals: animals, user: user });
 });
 
 router.post('/', jsonParser, async function(req, res, next) {
@@ -43,4 +43,3 @@ router.delete('/', jsonParser, async function(req, res, next) {
 });
 
 module.exports = router;
-
