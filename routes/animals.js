@@ -1,129 +1,45 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const AnimalService = require("../services/AnimalService");
+const router = express.Router();
+const db = require("../models");
+const animalService = new AnimalService(db);
+
+const bodyParser = require('body-parser')
+const jsonParser = bodyParser.json()
+
+exports.getAllAnimals = async () => {
+  try {
+    return await db.Animal.findAll({
+      include: [
+        {model: db.species},
+        {model: db.temperament},
+        {model: db.adoption, include: [{model: db.User}]}
+      ]
+    });
+  } catch (error) {
+    throw new Error('Error retrieving animals');
+  }
+};
+
 
 router.get('/', async function (req, res, next) {
-  // const animals = await animalService.getAll();
-  let animals =  [
-    {
-      "Id": 1,
-      "Name": "Coco",
-      "Species": "Dwarf Hamster",
-      "Birthday": "2020-02-12",
-      "Temperament": "calm, scared",
-      "Size": "small",
-      "Adopted": false
-    },
-    {
-      "Id": 2,
-      "Name": "Ted",
-      "Species": "Tedy bear hamster",
-      "Birthday": "2021-02-12",
-      "Temperament": "calm, scared",
-      "Size": "small",
-      "Adopted": false
-    },
-    {
-      "Id": 3,
-      "Name": "Coco",
-      "Species": "Jack-Russel",
-      "Birthday": "2020-02-12",
-      "Temperament": "energetic",
-      "Size": "medium",
-      "Adopted": false
-    },
-    {
-      "Id": 4,
-      "Name": "Everrest",
-      "Species": "Budgy",
-      "Birthday": "2019-02-12",
-      "Temperament": "calm, happy",
-      "Size": "small",
-      "Adopted": false
-    },
-    {
-      "Id": 5,
-      "Name": "Rocko",
-      "Species": "Tortouse",
-      "Birthday": "2020-02-12",
-      "Temperament": "calm, lazy",
-      "Size": "medium",
-      "Adopted": false
-    },
-    {
-      "Id": 6,
-      "Name": "Goldy",
-      "Species": "Gold Fish",
-      "Birthday": "2023-02-12",
-      "Temperament": "calm",
-      "Size": "small",
-      "Adopted": false
-    },
-    {
-      "Id": 7,
-      "Name": "Lizzy",
-      "Species": "Lizzard",
-      "Birthday": "2020-02-12",
-      "Temperament": "calm,lazy",
-      "Size": "medium",
-      "Adopted": false
-    },
-    {
-      "Id": 8,
-      "Name": "Goga",
-      "Species": "Bearder Dragon",
-      "Birthday": "2018-02-12",
-      "Temperament": "calm, lazy, scared",
-      "Size": "large",
-      "Adopted": true
-    },
-    {
-      "Id": 9,
-      "Name": "Tweet Tweet",
-      "Species": "Parrot",
-      "Birthday": "2020-02-12",
-      "Temperament": "calm, happy",
-      "Size": "large",
-      "Adopted": false
-    },
-    {
-      "Id": 10,
-      "Name": "Toothless",
-      "Species": "Corn snake ",
-      "Birthday": "2017-02-12",
-      "Temperament": "scared",
-      "Size": "medium",
-      "Adopted": false
-    },
-    {
-      "Id": 11,
-      "Name": "Sophie",
-      "Species": "Dwarf Hamster",
-      "Birthday": "2020-02-12",
-      "Temperament": "calm, scared",
-      "Size": "small",
-      "Adopted": false
-    },
-    {
-      "Id": 12,
-      "Name": "Teddy",
-      "Species": "Teddy bear hamster",
-      "Birthday": "2021-02-12",
-      "Temperament": "calm, scared",
-      "Size": "small",
-      "Adopted": false
-    },
-    {
-      "Id": 13,
-      "Name": "Roger",
-      "Species": "Parrot",
-      "Birthday": "2020-02-18",
-      "Temperament": "calm, happy",
-      "Size": "large",
-      "Adopted": false
-    }
-   ]
+  const animals = await animalService.get();
+  const user = req.user;
+  res.render('animals', { title: 'Animals', animals: animals, user: user, size });
+});
 
-  res.render('animals', { user: null, animals: animals });
+router.post('/', jsonParser, async function(req, res, next) {
+  let Id = req.body.Id;
+  let Name = req.body.Name;
+  let Birthday = req.body.Birthday;
+  await animalService.create(Id, Name, Birthday);
+  res.end()
+});
+
+router.delete('/', jsonParser, async function(req, res, next) {
+  let id = req.body.id;
+  await animalService.deleteAnimal(id);
+  res.end()
 });
 
 module.exports = router;

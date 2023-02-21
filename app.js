@@ -1,17 +1,22 @@
 require('dotenv').config();
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
-var db = require('./models');
+const createError = require('http-errors');
+const express = require('express');
+const path = require('path');
+const cookieParser = require('cookie-parser');
+const logger = require('morgan');
+const passport = require('passport');
+const session = require('express-session');
+const SQLiteStore = require('connect-sqlite3')(session);
+const db = require('./models');
 
-var indexRouter = require('./routes/index');
-var animalsRouter = require('./routes/animals');
-var speciesRouter = require('./routes/species');
-var temperamentRouter = require('./routes/temperament');
+const indexRouter = require('./routes/index');
+const animalsRouter = require('./routes/animals');
+const speciesRouter = require('./routes/species');
+const temperamentRouter = require('./routes/temperament');
+const usersRouter = require('./routes/users');
+const authRouter = require('./routes/auth');
 
-var app = express();
+const app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -23,7 +28,17 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use(session({
+  secret: 'random text',
+  resave: false,
+  saveUninitialized: false,
+  store: new SQLiteStore()
+}));
+app.use(passport.authenticate('session'));
+
 app.use('/', indexRouter);
+app.use('/', authRouter);
+app.use('/users', usersRouter);
 app.use('/animals', animalsRouter);
 app.use('/species', speciesRouter);
 app.use('/temperament', temperamentRouter);
