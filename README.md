@@ -16,6 +16,8 @@ sequelize@6.28.0
 mysql@2.18.1
 mysql2@3.1.0
 PassportJS
+express-session
+connect-sqlite3
 nodemon
 
 # NodeJS Version Used
@@ -123,8 +125,8 @@ VALUES
  (13, 5);
 
 # DATABASEACCESS
-CREATE LOGIN dabcaowner WITH PASSWORD = 'dabca1234', DEFAULT_DATABASE = adoptiondb;
-ALTER SERVER ROLE sysadmin ADD MEMBER dabcaowner;
+CREATE User 'dabcaowner'@'localhost' IDENTIFIED BY 'dabca1234';
+GRANT ALL PRIVILEGES ON adoptiondb.* TO 'dabcaowner'@'localhost' WITH GRANT OPTION;
 
 
 # DATABASEQUERIES# 
