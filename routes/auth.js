@@ -17,7 +17,7 @@ passport.use(new LocalStrategy(function verify(username, password, cb) {
 
 passport.serializeUser(function(user, cb) {
     process.nextTick(function() {
-        cb(null, { id: user.id, username: user.Username });
+        cb(null, { id: user.id, username: user.username });
     });
 });
 
@@ -28,7 +28,7 @@ passport.deserializeUser(function(user, cb) {
 });
 
 router.get('/login', function(req, res, next) {
-    res.render('login',{ user: req.user})
+    res.render('login',{ user: req.user, username: req.username})
 });
 
 router.post('/login/password', passport.authenticate('local', {
@@ -53,6 +53,5 @@ router.post('/signup', function(req, res, next) {
         res.redirect('/login');
     });
 });
-
 
 module.exports = router;
