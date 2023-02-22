@@ -9,7 +9,7 @@ const jsonParser = bodyParser.json()
 
 router.get('/', async function (req, res, next) {
   const animals = await animalService.get();
-  res.render('animals', { title: 'Animals', user: null, animals: animals});
+  res.render('animals', { title: 'Animals', user: req.user, animals: animals});
 });
 
 router.post('/', jsonParser, async function(req, res, next) {

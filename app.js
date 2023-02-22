@@ -13,7 +13,6 @@ const indexRouter = require('./routes/index');
 const animalsRouter = require('./routes/animals');
 const speciesRouter = require('./routes/species');
 const temperamentRouter = require('./routes/temperament');
-const usersRouter = require('./routes/users');
 const authRouter = require('./routes/auth');
 
 const app = express();
@@ -39,7 +38,6 @@ app.use(passport.authenticate('session'));
 
 app.use('/', indexRouter);
 app.use('/', authRouter);
-app.use('/users', usersRouter);
 app.use('/animals', animalsRouter);
 app.use('/species', speciesRouter);
 app.use('/temperament', temperamentRouter);

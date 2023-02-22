@@ -25,13 +25,14 @@
                     </li>
                     <% } else {%>
                         <li class="nav-item">
-                            <p class="nav-link">Hello <%= user.username %>
+                            <p class="nav-link">Hello <a class="nav-link"><b><%= user.username %></b></a>
                             </p>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/logout">Logout</a>
+                            <form action="/logout" method="post">
+                                <button class="btn" type="submit">Logout</button></form>
                         </li>
-                        <% }; %>
+                        <% } %>
             </ul>
         </div>
     </div>

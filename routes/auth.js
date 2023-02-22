@@ -28,8 +28,9 @@ passport.deserializeUser(function(user, cb) {
 });
 
 router.get('/login', function(req, res, next) {
-    res.render('login');
+    res.render('login',{ user: req.user})
 });
+
 router.post('/login/password', passport.authenticate('local', {
     successReturnToOrRedirect: '/',
     failureRedirect: '/login',
@@ -39,12 +40,12 @@ router.post('/login/password', passport.authenticate('local', {
 router.post('/logout', function(req, res, next) {
     req.logout(function(err) {
         if (err) { return next(err); }
-        res.redirect('/');
+        res.redirect('/login');
     });
 });
 
 router.get('/signup', function(req, res, next) {
-    res.render('signup');
+    res.render('signup',{ user: req.user})
 });
 
 router.post('/signup', function(req, res, next) {

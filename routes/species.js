@@ -6,11 +6,10 @@ const speciesService = new SpeciesService(db);
 
 const bodyParser = require('body-parser')
 const jsonParser = bodyParser.json()
+
 router.get('/', async function (req, res, next) {
-    const user = req.user;
     const species = await speciesService.get();
-    res.render('species', { title: 'Species', species: species, user: user });
-    res.render("species", {user: null})
+    res.render('species', { title: 'Species', species: species, user: req.user });
 })
 
 router.post('/', jsonParser, async function(req, res, next) {
