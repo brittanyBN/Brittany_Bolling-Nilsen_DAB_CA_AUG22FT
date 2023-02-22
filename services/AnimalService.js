@@ -2,21 +2,17 @@ class AnimalService {
     constructor(db) {
         this.client = db.sequelize;
         this.Animal = db.Animal;
-        this.Size = db.Size;
-        this.Species = db.Species;
-        this.Temperament = db.Temperament;
-        this.Adoption = db.Adoption;
     }
 
-    async create(id, name, species, birthday, temperament, size, adopted) {
+    async create(id, name, speciesId, birthday, temperamentId, sizeId, adoptedId ) {
             return await this.Animal.create({
                 Id: id,
                 Name: name,
-                Species: species,
+                SpeciesId: speciesId,
                 Birthday: birthday,
-                Temperament: temperament,
-                Size: size,
-                Adopted: adopted,
+                TemperamentId: temperamentId,
+                SizeId: sizeId,
+                AdoptedId: adoptedId,
             });
         }
 
@@ -25,7 +21,6 @@ class AnimalService {
                 include: [
                     {
                         model: this.client.models.Species,
-                        attributes: ["name"],
                     },
                     {
                         model: this.client.models.Temperament,
@@ -33,8 +28,10 @@ class AnimalService {
                         through: {attributes: []},
                     },
                     {
+                        model: this.client.models.Size,
+                    },
+                    {
                         model: this.client.models.Adoption,
-                        attributes: ["adopted"],
                     },
                 ],
             });

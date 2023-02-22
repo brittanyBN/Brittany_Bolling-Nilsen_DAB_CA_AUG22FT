@@ -4,14 +4,15 @@ const LocalStrategy = require('passport-local');
 const db = require("../models");
 const UserService = require("../services/UserService")
 const userService = new UserService(db);
+const router = express.Router();
 
 passport.use(new LocalStrategy(function verify(username, password, cb) {
     userService.getOneByName(username).then((data) => {
         if(data === null) {
             return cb(null, false, { message: 'Incorrect username or password.' });
         }
-            return cb(null, data);
-        });
+        return cb(null, data);
+    });
 }));
 
 passport.serializeUser(function(user, cb) {
@@ -26,7 +27,6 @@ passport.deserializeUser(function(user, cb) {
     });
 });
 
-var router = express.Router();
 router.get('/login', function(req, res, next) {
     res.render('login');
 });
@@ -39,7 +39,7 @@ router.post('/login/password', passport.authenticate('local', {
 router.post('/logout', function(req, res, next) {
     req.logout(function(err) {
         if (err) { return next(err); }
-        res.redirect('/login');
+        res.redirect('/');
     });
 });
 
@@ -48,24 +48,10 @@ router.get('/signup', function(req, res, next) {
 });
 
 router.post('/signup', function(req, res, next) {
-    db.run('INSERT INTO users (username, fullName, password) VALUES (?, ?, ?)', [
-        req.body.username,
-        password,
-    ], function(err) {
-        if (err) {
-            return next(err);
-        }
-        let user = {
-            id: this.id,
-            username: req.body.username
-        };
-        req.login(user, function (err) {
-            if (err) {
-                return next(err);
-            }
-            res.redirect('/');
-        });
+    userService.create(req.body.firstname, req.body.lastname, req.body.username, req.body.password).then((data) => {
+        res.redirect('/login');
     });
 });
+
 
 module.exports = router;

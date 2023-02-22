@@ -1,4 +1,3 @@
-const { sequelize } = require("../models");
 class UserService {
     constructor(db) {
         this.client = db.sequelize;
@@ -7,18 +6,18 @@ class UserService {
         this.Role = db.Role;
     }
 
-    async create(fullName, username, salt, encryptedPassword) {
+    async create(firstname, lastname, username, password) {
         return this.User.create(
             {
-                fullName: fullName,
-                Username: username,
-                Salt: salt,
-                EncryptedPassword: encryptedPassword
+                firstname: firstname,
+                lastname: lastname,
+                username: username,
+                password: password,
             }
         )
     }
 
-    async getAll() {
+    async get() {
         return this.User.findAll({
             where: {}
         })

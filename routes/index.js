@@ -15,5 +15,9 @@ router.get('/signup', function (req, res, next) {
   res.render('signup', { title: 'Express', user: null });
 });
 
+router.get('/logout', function (req, res, next) {
+  res.render('login', { title: 'Express', user: null });
+});
+
 module.exports = router;
 

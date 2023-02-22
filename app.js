@@ -34,6 +34,7 @@ app.use(session({
   saveUninitialized: false,
   store: new SQLiteStore()
 }));
+
 app.use(passport.authenticate('session'));
 
 app.use('/', indexRouter);
