@@ -91,11 +91,11 @@ VALUES
 (FALSE, 12, NULL),
 (FALSE, 13, NULL);
   
-INSERT INTO Users (fullName, username, password, RoleId)
+INSERT INTO Users (firstname, lastname, username, password, RoleId)
 VALUES
-('System admin', 'Admin', 'admin1234', 1),
-('User', 'User', 'user1234', 2),
-('User2', 'User2', 'user1234', 2);
+('System', 'admin', 'Admin', 'admin1234', 1),
+('User', 'One', 'User', 'user1234', 2),
+('User2', 'Two', 'User2', 'user1234', 2);
 
 INSERT INTO AnimalTemperament (AnimalId, TemperamentId)
 VALUES
