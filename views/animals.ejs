@@ -4,8 +4,8 @@
 <head>
     <title> DAB - Adopt Animal</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="/stylesheets/styles.css">
-    <script src="../js/common.js"></script>
+    <link rel="stylesheet" href="./public/stylesheets/styles.css">
+    <script src="./public/js/common.js"></script>
 
 </head>
 
@@ -51,7 +51,7 @@
               to calculate from database
             </span>
             <span class="col py-1 bg-light">
-              <%=animal.adopted%>
+                 <%=animal.adopted%>
             </span>
             <span class="col py-1 bg-light text-center">
               <button class="btn-sm btn-warning" onclick="adoptAnimal(<%=animal.Id%>)">Adopt</button>

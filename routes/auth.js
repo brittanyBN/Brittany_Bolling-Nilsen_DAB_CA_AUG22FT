@@ -1,10 +1,9 @@
-var express = require('express');
-var passport = require('passport');
-var LocalStrategy = require('passport-local');
-var crypto = require('crypto');
-var db = require("../models");
-var UserService = require("../services/UserService")
-var userService = new UserService(db);
+const express = require('express');
+const passport = require('passport');
+const LocalStrategy = require('passport-local');
+const db = require("../models");
+const UserService = require("../services/UserService")
+const userService = new UserService(db);
 
 passport.use(new LocalStrategy(function verify(username, password, cb) {
     userService.getOneByName(username).then((data) => {
@@ -40,7 +39,7 @@ router.post('/login/password', passport.authenticate('local', {
 router.post('/logout', function(req, res, next) {
     req.logout(function(err) {
         if (err) { return next(err); }
-        res.redirect('/');
+        res.redirect('/login');
     });
 });
 
@@ -49,10 +48,23 @@ router.get('/signup', function(req, res, next) {
 });
 
 router.post('/signup', function(req, res, next) {
-    (req.body.password, 310000, 32, 'sha256', function(err, password) {
-        if (err) { return next(err); }
-        userService.create(req.body.fullName, req.body.username, password )
-        res.redirect('/login');
+    db.run('INSERT INTO users (username, fullName, password) VALUES (?, ?, ?)', [
+        req.body.username,
+        password,
+    ], function(err) {
+        if (err) {
+            return next(err);
+        }
+        let user = {
+            id: this.id,
+            username: req.body.username
+        };
+        req.login(user, function (err) {
+            if (err) {
+                return next(err);
+            }
+            res.redirect('/');
+        });
     });
 });
 

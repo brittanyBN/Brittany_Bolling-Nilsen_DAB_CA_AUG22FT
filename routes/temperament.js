@@ -1,17 +1,14 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const TemperamentService = require("../services/TemperamentService");
+const router = express.Router();
+const db = require("../models");
+const temperamentService = new TemperamentService(db);
+
+const bodyParser = require('body-parser')
+const jsonParser = bodyParser.json()
 
 router.get('/', async function (req, res, next) {
-    temperament = [
-        {
-            Id: 1,
-            Name: "Calm"
-        },
-        {
-            Id: 2,
-            Name: "Scared"
-        }
-    ]
+    const temperament = await temperamentService.get();
     res.render("temperament", {user: null, temperament: temperament})
 })
 
