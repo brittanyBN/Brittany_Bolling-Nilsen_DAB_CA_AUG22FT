@@ -4,7 +4,7 @@ class AnimalService {
         this.Animal = db.Animal;
     }
 
-    async create(id, name, speciesId, birthday, temperamentId, sizeId, adoptedId ) {
+    async create(id, name, speciesId, birthday, temperamentId, sizeId, adopted) {
             return await this.Animal.create({
                 Id: id,
                 Name: name,
@@ -12,7 +12,7 @@ class AnimalService {
                 Birthday: birthday,
                 TemperamentId: temperamentId,
                 SizeId: sizeId,
-                AdoptedId: adoptedId,
+                Adopted: adopted
             });
         }
 
@@ -29,9 +29,6 @@ class AnimalService {
                     },
                     {
                         model: this.client.models.Size,
-                    },
-                    {
-                        model: this.client.models.Adoption,
                     },
                 ],
             });

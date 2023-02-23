@@ -1,7 +1,8 @@
 module.exports = (sequelize, DataTypes) => {
     const Animal = sequelize.define('Animal', {
         name: DataTypes.STRING,
-        birthday: DataTypes.DATEONLY
+        birthday: DataTypes.DATEONLY,
+        adopted: DataTypes.BOOLEAN
     }, {
         timestamps: false
     });
@@ -10,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
         Animal.belongsToMany(models.Temperament, { through: 'AnimalTemperament'});
         Animal.belongsTo(models.Species);
         Animal.belongsTo(models.Size);
-        Animal.hasOne(models.Adoption);
+        Animal.belongsTo(models.User);
     };
 
     return Animal;

@@ -13,7 +13,7 @@ module.exports = (sequelize, DataTypes) => {
     });
 
     User.associate = function(models) {
-        User.hasMany(models.Adoption);
+        User.hasMany(models.Animal);
         User.belongsTo(models.Role);
     };
 

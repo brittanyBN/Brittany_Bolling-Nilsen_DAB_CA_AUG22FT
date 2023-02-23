@@ -51,11 +51,11 @@
               <%=animal.currentAge%>
             </span>
             <span class="col py-1 bg-light">
-                 <%=animal.Adoption.adopted%>
+                 <%=animal.adopted%>
             </span>
             <span class="col py-1 bg-light text-center">
-              <button class="btn-sm btn-warning" onclick="adoptAnimal(<%=animal.Id%>)">Adopt</button>
-              <button class="btn-sm btn-danger" onclick="deleteAnimal(<%=animal.Id%>)">Cancel Adoption</button>
+              <button class="btn-sm btn-warning" onclick="adoptAnimal('<%=animal.id%>','<%=animal.User.id%>','<%=animal.adopted%>','http\:\/\/localhost:3000\/animals')">Adopt</button>
+              <button class="btn-sm btn-danger" onclick="deleteAnimal(<%=animal.id%>)">Cancel Adoption</button>
             </span>
         </div>
         <% }); %>
