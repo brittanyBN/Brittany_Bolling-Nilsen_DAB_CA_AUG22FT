@@ -20,19 +20,14 @@ router.post('/', jsonParser, async function(req, res, next) {
   res.end()
 });
 
-router.patch('/animals/:id', async (req, res) => {
-  const animal = await Animal.findOne({
-    where: {id: req.params.id},
-    include: [Adoption]
-  });
-  if (animal) {
-    animal.Adoption.adopted = req.body.adopted;
-    animal.Adoption.userId = req.body.userId;
-    await animal.Adoption.save();
+router.patch('/:id', async (req, res) => {
+  const animalId = req.params.id;
 
-    res.status(200).json(animal);
-  } else {
-    res.status(404).json({message: 'Animal not found'});
+  try {
+    const animal = await animalService.adoptAnimal(animalId, true);
+    res.json(animal);
+  } catch (error) {
+    res.status(404).send(error.message);
   }
 });
 
