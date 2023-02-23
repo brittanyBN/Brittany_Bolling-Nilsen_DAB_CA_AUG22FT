@@ -59,37 +59,21 @@ VALUES
 ('admin'),
 ('member');
 
-INSERT INTO Animals (Name, Birthday, SpeciesId, SizeId)
+INSERT INTO Animals (Name, Birthday, Adopted, SpeciesId, SizeId)
 VALUES
-('Coco', '2020-02-12', 1, 1),
-('Ted', '2021-02-12', 2, 1),
-('Coco', '2020-02-12', 3, 2),
-('Everrest', '2019-02-12', 4, 1),
-('Rocko', '2020-02-12', 5, 2),
-('Goldy', '2023-02-12', 6, 1),
-('Lizzy', '2020-02-12', 7, 2),
-('Goga', '2018-02-12', 8, 3),
-('Tweet Tweet', '2020-02-12', 9, 3),
-('Toothless', '2017-02-12', 10, 2),
-('Sophie', '2020-02-12', 1, 1),
-('Teddy', '2021-02-12', 2, 1),
-('Roger', '2020-02-18', 9, 3);
-
-INSERT INTO Adoptions (adopted, animalid, userId)
-VALUES
-(FALSE, 1, NULL),
-(FALSE, 2, NULL),
-(FALSE, 3, NULL),
-(FALSE, 4, NULL),
-(FALSE, 5, NULL),
-(FALSE, 6, NULL),
-(FALSE, 7, NULL),
-(TRUE, 8, 2),
-(FALSE, 9, NULL),
-(FALSE, 10, NULL),
-(FALSE, 11, NULL),
-(FALSE, 12, NULL),
-(FALSE, 13, NULL);
+('Coco', '2020-02-12', FALSE, 1, 1),
+('Ted', '2021-02-12', FALSE, 2, 1),
+('Coco', '2020-02-12', FALSE, 3, 2),
+('Everrest', '2019-02-12', FALSE, 4, 1),
+('Rocko', '2020-02-12', FALSE, 5, 2),
+('Goldy', '2023-02-12', FALSE, 6, 1),
+('Lizzy', '2020-02-12', FALSE,7, 2),
+('Goga', '2018-02-12', TRUE, 8, 3),
+('Tweet Tweet', '2020-02-12', FALSE, 9, 3),
+('Toothless', '2017-02-12', FALSE, 10, 2),
+('Sophie', '2020-02-12', FALSE, 1, 1),
+('Teddy', '2021-02-12', FALSE, 2, 1),
+('Roger', '2020-02-18', FALSE, 9, 3);
   
 INSERT INTO Users (firstname, lastname, username, password, RoleId)
 VALUES
@@ -125,8 +109,8 @@ VALUES
  (13, 5);
 
 # DATABASEACCESS
-CREATE User 'dabcaowner'@'localhost' IDENTIFIED BY 'dabca1234';
-GRANT ALL PRIVILEGES ON adoptiondb.* TO 'dabcaowner'@'localhost' WITH GRANT OPTION;
+CREATE User 'dabcaowner'@'127.0.0.1' IDENTIFIED BY 'dabca1234';
+GRANT ALL PRIVILEGES ON adoptiondb.* TO 'dabcaowner'@'127.0.0.1' WITH GRANT OPTION;
 
 
 # DATABASEQUERIES# 
