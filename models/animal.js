@@ -1,7 +1,7 @@
 module.exports = (sequelize, DataTypes) => {
     const Animal = sequelize.define('Animal', {
         name: DataTypes.STRING,
-        birthday: DataTypes.DATEONLY,
+        birthday: DataTypes.DATEONLY
     }, {
         timestamps: false
     });

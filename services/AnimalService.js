@@ -17,7 +17,7 @@ class AnimalService {
         }
 
     async get() {
-            return await this.Animal.findAll({
+            const animals = await this.Animal.findAll({
                 include: [
                     {
                         model: this.client.models.Species,
@@ -35,6 +35,18 @@ class AnimalService {
                     },
                 ],
             });
+
+        const now = new Date();
+        animals.forEach(animal => {
+            const birthday = new Date(animal.birthday);
+            const age = now.getTime() - birthday.getTime();
+            const ageDate = new Date(age);
+            const years = Math.abs(ageDate.getUTCFullYear() - 1970);
+            const months = Math.abs(ageDate.getUTCMonth());
+            animal.currentAge = `${years} years, ${months} months`;
+        });
+
+        return animals;
     }
 
     async deleteAnimal(animalId) {
