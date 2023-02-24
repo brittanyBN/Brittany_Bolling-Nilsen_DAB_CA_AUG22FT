@@ -38,7 +38,6 @@ async function addSpecies(url) {
 
 function updateSpecies(id){
     newSpecies = prompt("Update species")
-
 }
 
 async function deleteSpecies(speciesId, url) {
@@ -83,11 +82,44 @@ async function addTemperament(url) {
     return resData;
 }
 
-function updateTemperament(id){
-    alterTemperament = prompt("Update temperament")
+async function updateTemperament(url) {
+    let alterTemperament = prompt("Update temperament")    const response = await fetch(url, {
+        method: 'PATCH',
+        headers: {
+            'Content-type': 'application/json'
+        },
+        body: JSON.stringify({
+            name: alterTemperament
+        })
+    });
+    if (!response.ok) {
+        throw new Error('Failed to create species');
+    }
+    const resData = await response.json();
+    location.reload()
+    return resData;
 }
 
-function deleteTemperament(id){
+async function deleteTemperament(tempId, url) {
+    await fetch(url, {
+        method: 'DELETE',
+        headers: {
+            'Content-type': 'application/json'
+        },
+        body: JSON.stringify({
+            id: tempId
+        })
+    }).then((response) => {
+        if (response.ok) {
+            const resData = 'Temperament deleted...';
+            location.reload()
+            return Promise.resolve(resData);
+        }
+        return Promise.reject(response);
+    })
+        .catch((response) => {
+            alert(response.statusText);
+        });
 }
 
 

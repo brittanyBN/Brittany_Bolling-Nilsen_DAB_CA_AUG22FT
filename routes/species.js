@@ -23,4 +23,5 @@ router.delete('/', jsonParser, async function(req, res, next) {
     await speciesService.deleteSpecies(Id);
     res.end()
 });
+
 module.exports = router;

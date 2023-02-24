@@ -22,4 +22,10 @@ router.put('/update', async function (req,res,next){
     res.render("index",{user: req.user})
 })
 
+router.delete('/', jsonParser, async function(req, res, next) {
+    let Id = req.body.id;
+    await temperamentService.deleteTemperament(Id);
+    res.end()
+});
+
 module.exports = router;

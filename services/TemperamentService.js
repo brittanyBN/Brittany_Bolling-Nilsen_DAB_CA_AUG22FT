@@ -24,6 +24,13 @@ class TemperamentService {
             where: {id: TemperamentId}
         })
     }
+
+    async getTemperamentById(tempId) {
+        return this.Temperament.findOne({
+            where: {id: tempId},
+        });
+    }
+
 }
 
 
