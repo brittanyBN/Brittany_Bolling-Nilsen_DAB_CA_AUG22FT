@@ -12,7 +12,13 @@ router.get('/', async function (req, res, next) {
     res.render("temperament", {user: req.user, temperament: temperament})
 })
 
-router.post('/update', async function (req,res,next){
+router.post('/add', jsonParser, async function (req,res,next) {
+    let temp = req.body.name;
+    await temperamentService.create(temp);
+        res.end();
+});
+
+router.put('/update', async function (req,res,next){
     res.render("index",{user: req.user})
 })
 

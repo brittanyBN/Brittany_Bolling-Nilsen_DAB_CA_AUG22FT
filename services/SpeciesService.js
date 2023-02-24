@@ -5,13 +5,12 @@ class SpeciesService {
         console.log(db);
     }
 
-    async create(id, name) {
-        return this.Species.create(
+    async create(name) {
+        return await this.Species.create(
             {
-                Id: id,
-                Name: name,
+                name: name,
             }
-        )
+        );
     }
 
     async get() {

@@ -17,7 +17,7 @@ class UserService {
         )
     }
 
-    async get() {
+    async getAll() {
         return this.User.findAll({
             where: {}
         })

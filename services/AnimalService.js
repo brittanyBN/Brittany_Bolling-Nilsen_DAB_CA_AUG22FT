@@ -39,27 +39,15 @@ class AnimalService {
             const birthday = new Date(animal.birthday);
             const age = now.getTime() - birthday.getTime();
             const ageDate = new Date(age);
-            const years = Math.abs(ageDate.getUTCFullYear() - 1970);
-            const months = Math.abs(ageDate.getUTCMonth());
+            const years = Math.floor(ageDate.getUTCFullYear() - 1970);
+            const months = Math.floor(ageDate.getUTCMonth());
             animal.currentAge = `${years} years, ${months} months`;
         });
 
         return animals;
     }
 
-    async deleteAnimal(animalId) {
-        return this.Animal.destroy({
-            where: {id: animalId}
-        });
-    }
-
-    async getAnimalById(animalId) {
-        return this.Animal.findOne({
-            where: {id: animalId}
-        });
-    }
-
-    async adoptAnimal(animalId) {
+    async updateAnimal(animalId) {
         const animal = await this.getAnimalById(animalId);
         if (!animal) {
             throw new Error(`Animal with ID :${animalId} not found`);
@@ -70,6 +58,25 @@ class AnimalService {
 
         return animal;
     }
+
+    async deleteAnimal(animalId) {
+        return this.Animal.destroy({
+            where: {id: animalId}
+        });
+    }
+
+    async getAnimalById(animalId) {
+        return this.Animal.findOne({
+            where: {id: animalId},
+            include: [
+                {
+                    model: this.client.models.User,
+                    attributes: ["id"],
+                },
+                ],
+        });
+    }
+
 }
 
 module.exports = AnimalService;

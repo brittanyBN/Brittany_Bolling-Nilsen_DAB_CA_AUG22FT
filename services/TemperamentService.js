@@ -5,11 +5,10 @@ class TemperamentService {
         console.log(db);
     }
 
-    async create(id, name) {
+    async create(name) {
         return this.Temperament.create(
             {
-                Id: id,
-                Name: name,
+                name: name,
             }
         )
     }

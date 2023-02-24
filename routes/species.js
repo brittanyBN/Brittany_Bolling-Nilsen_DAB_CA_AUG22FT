@@ -12,16 +12,15 @@ router.get('/', async function (req, res, next) {
     res.render('species', { title: 'Species', species: species, user: req.user });
 })
 
-router.post('/', jsonParser, async function(req, res, next) {
-    let Species = req.body.Species;
-    await speciesService.create(Species);
+router.post('/add', jsonParser, async function(req, res, next) {
+    let species = req.body.name;
+    await speciesService.create(species);
     res.end()
 });
 
 router.delete('/', jsonParser, async function(req, res, next) {
-    let Id = req.body.Id;
-    let Name = req.body.Name;
-    await speciesService.deleteSpecies(Id, Name);
+    let Id = req.body.id;
+    await speciesService.deleteSpecies(Id);
     res.end()
 });
 module.exports = router;
