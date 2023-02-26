@@ -21,12 +21,6 @@ class TemperamentService {
     }
 
     async deleteTemperament(TemperamentId) {
-        const animalCount = await this.getAnimalCountByTemperamentId(animalTemperamentId);
-
-        if (animalCount > 0) {
-            alert("Cannot update temperament because animals exist with this temperament ID");
-            return
-        }
         return this.Temperament.destroy({
             where: {id: TemperamentId}
         })
@@ -57,8 +51,6 @@ class TemperamentService {
             where: {id: tempId},
         });
     }
-
 }
-
 
 module.exports = TemperamentService;

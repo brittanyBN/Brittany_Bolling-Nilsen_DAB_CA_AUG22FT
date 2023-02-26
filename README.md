@@ -115,27 +115,32 @@ GRANT ALL PRIVILEGES ON adoptiondb.* TO 'dabcaowner'@'127.0.0.1' WITH GRANT OPTI
 
 # DATABASEQUERIES# 
 1. Return the most popular animal name.
-SELECT * FROM adoptiondb.Animals;
-SELECT name, COUNT(*) as count
-FROM animals
-GROUP BY name
-ORDER BY count DESC
-LIMIT 1;
+   SELECT * FROM adoptiondb.Animals;
+   SELECT name, COUNT(*) as count
+   FROM animals
+   GROUP BY name
+   ORDER BY count DESC
+   LIMIT 1;
 
 2. Return a list of animals that have been adopted, and the name of the user that adopted them.
-
+   SELECT Animals.name, Users.username
+   FROM Animals
+   JOIN Users ON Animals.UserId = Users.id
+   WHERE Animals.UserId IS NOT NULL;
 
 3. Return a list of all the animals, sorted by age from youngest to oldest.
-SELECT * FROM adoptiondb.Animals;
-SELECT name, birthday
-FROM animals
-ORDER BY birthday;
+   SELECT * FROM adoptiondb.Animals;
+   SELECT name, birthday
+   FROM animals
+   ORDER BY birthday;
 
 4. Return all the animals born between 31 December 2017 and 31 December 2020.
-SELECT *
-FROM animals
-WHERE birthday BETWEEN '2017-12-31' AND '2020-12-31';
+   SELECT *
+   FROM animals
+   WHERE birthday BETWEEN '2017-12-31' AND '2020-12-31';
 
 5. Return the number of animals per size (return each size and the number).
-
-6. CREATE a trigger to implement the following feature - Whenever a new animal of Species type “Lizard” is added to the database, the last created user will automatically adopt that animal.
+   SELECT Sizes.size, COUNT(*) AS number_of_animals
+   FROM Animals
+   JOIN Sizes ON Animals.SizeId = Sizes.id
+   GROUP BY Sizes.size;

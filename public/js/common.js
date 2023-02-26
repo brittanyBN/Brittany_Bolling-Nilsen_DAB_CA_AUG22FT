@@ -79,6 +79,7 @@ async function addSpecies(url) {
                 id: speciesId,
             })
         }).then((response) => {
+            console.log(response);
             if (response.ok) {
                 const resData = 'Species deleted...';
                 location.reload()
