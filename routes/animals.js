@@ -20,24 +20,35 @@ router.post('/', jsonParser, async function(req, res, next) {
   res.end()
 });
 
-router.patch('/:id', async (req, res) => {
-  const animalId = req.params.id;
-  const user = req.user;
-if (user === undefined) {
-  res.sendStatus(400).send('user is required');
-} else {
-  try {
-    const animal = await animalService.updateAnimal(animalId);
-    res.json(animal);
-  } catch (error) {
-    res.status(404).send(error.message);
-  }
-}
-});
+  router.patch('/adopt', async function (req,res,next) {
+    let animalId = req.body.id;
+    console.log(animalId);
+    let adoptionStatus = req.body.adopted;
+    console.log(adoptionStatus);
+    await animalService.updateAnimal(animalId, adoptionStatus).then(() => {
+      console.log("Animal updated");
+      res.send("Animal updated")
+    })
+        .catch((response) => {
+          alert(response.statusText);
+          res.send("Update failed");
+        });
+    res.end()
+  });
 
-router.delete('/', jsonParser, async function(req, res, next) {
-  let id = req.body.id;
-  await animalService.deleteAnimal(id);
+router.patch('/cancel', async function (req,res,next) {
+  let animalId = req.body.id;
+  console.log(animalId);
+  let adoptionStatus = req.body.adopted;
+  console.log(adoptionStatus);
+  await animalService.returnAnimal(animalId, adoptionStatus).then(() => {
+    console.log("Animal updated");
+    res.send("Animal updated")
+  })
+      .catch((response) => {
+        alert(response.statusText);
+        res.send("Update failed");
+      });
   res.end()
 });
 

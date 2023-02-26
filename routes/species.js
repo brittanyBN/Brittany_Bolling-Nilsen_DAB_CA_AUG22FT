@@ -18,6 +18,19 @@ router.post('/add', jsonParser, async function(req, res, next) {
     res.end()
 });
 
+router.patch('/update', async function (req,res,next) {
+    let speciesId = req.body.id;
+    let newName = req.body.name;
+    await speciesService.alterSpecies(speciesId, newName).then(() => {
+        console.log("Species updated");
+        res.send("Species updated")
+    })
+        .catch((response) => {
+            res.send("Update failed");
+        });
+    res.end()
+})
+
 router.delete('/', jsonParser, async function(req, res, next) {
     let Id = req.body.id;
     await speciesService.deleteSpecies(Id);

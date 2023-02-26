@@ -18,8 +18,18 @@ router.post('/add', jsonParser, async function (req,res,next) {
         res.end();
 });
 
-router.put('/update', async function (req,res,next){
-    res.render("index",{user: req.user})
+router.patch('/update', async function (req,res,next) {
+    let temp = req.body.id;
+    let newName = req.body.name;
+    await temperamentService.updateTemperament(temp, newName).then(() => {
+        console.log("Temperament updated");
+        res.send("Temperament updated")
+    })
+        .catch((response) => {
+            alert(response.statusText);
+            res.send("Update failed");
+        });
+    res.end()
 })
 
 router.delete('/', jsonParser, async function(req, res, next) {

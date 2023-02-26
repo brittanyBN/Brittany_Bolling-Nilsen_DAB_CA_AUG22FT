@@ -25,6 +25,20 @@ class TemperamentService {
         })
     }
 
+    async updateTemperament(TemperamentId, newName) {
+        console.log("TemperamentId: " + TemperamentId);
+        let temperament = await this.getTemperamentById(TemperamentId);
+        temperament.name = newName;
+        await temperament.save()
+    .then((response) => {
+            console.log("Temperament updated");
+            console.log("response: " + response);
+        })
+            .catch((response) => {
+                alert(response.statusText);
+            });
+    }
+
     async getTemperamentById(tempId) {
         return this.Temperament.findOne({
             where: {id: tempId},

@@ -28,7 +28,7 @@
                 <%=temp.name%>
               </span>
               <span class="col py-1 bg-light text-center">
-                <button class="btn-sm btn-warning" onclick="updateTemperament(<%=temp.id%>)">Update temperament</button>
+                <button class="btn-sm btn-warning" onclick="updateTemperament('<%=temp.id%>', 'http\:\/\/localhost:3000\/temperament\/update')">Update temperament</button>
                 <button class="btn-sm btn-danger" onclick="deleteTemperament('<%=temp.id%>', 'http\:\/\/localhost:3000\/temperament')">Delete temperament</button>
               </span>
             </div>

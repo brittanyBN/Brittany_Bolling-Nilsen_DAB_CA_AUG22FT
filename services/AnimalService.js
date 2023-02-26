@@ -18,6 +18,7 @@ class AnimalService {
             include: [
                 {
                     model: this.client.models.Species,
+                    attributes: ["name"],
                 },
                 {
                     model: this.client.models.Temperament,
@@ -47,33 +48,39 @@ class AnimalService {
         return animals;
     }
 
-    async updateAnimal(animalId) {
+    async updateAnimal(animalId, adoptionStatus) {
         const animal = await this.getAnimalById(animalId);
-        if (!animal) {
-            throw new Error(`Animal with ID :${animalId} not found`);
-        }
-
+        let adoption = adoptionStatus
+        console.log("animalId: " + animalId);
         animal.adopted = true;
-        await animal.save();
-
-        return animal;
+        await animal.save()
+            .then((response) => {
+                console.log("Animal updated");
+                console.log("response: " + response);
+            })
+            .catch((response) => {
+                alert(response.statusText);
+            });
     }
 
-    async deleteAnimal(animalId) {
-        return this.Animal.destroy({
-            where: {id: animalId}
-        });
+    async returnAnimal(animalId, adoptionStatus) {
+        const returnAnimal = await this.getAnimalById(animalId);
+        let adoption = adoptionStatus
+        console.log("animalId: " + animalId);
+        returnAnimal.adopted = false;
+        await returnAnimal.save()
+            .then((response) => {
+                console.log("Animal updated");
+                console.log("response: " + response);
+            })
+            .catch((response) => {
+                alert(response.statusText);
+            });
     }
 
     async getAnimalById(animalId) {
         return this.Animal.findOne({
             where: {id: animalId},
-            include: [
-                {
-                    model: this.client.models.User,
-                    attributes: ["id"],
-                },
-                ],
         });
     }
 

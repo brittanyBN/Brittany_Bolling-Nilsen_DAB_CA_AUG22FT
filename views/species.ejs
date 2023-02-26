@@ -27,8 +27,8 @@
                 <%=species.name%>
               </span>
               <span class="col py-1 bg-light text-center">
-                <button class="btn-sm btn-warning" onclick="updateSpecies( '<%=species.id%>', 'http\:\/\/localhost:3000\/species')">Update species</button>
-                <button class="btn-sm btn-danger" onclick="deleteSpecies( '<%=species.id%>', 'http\:\/\/localhost:3000\/species')">Delete species</button>
+                <button onclick="updateSpecies( '<%=species.id%>', 'http\:\/\/localhost:3000\/species\/update')" class="btn-sm btn-warning">Update species</button>
+                <button onclick="deleteSpecies( '<%=species.id%>', 'http\:\/\/localhost:3000\/species')" class="btn-sm btn-danger">Delete species</button>
               </span>
             </div>
             <% }); %>

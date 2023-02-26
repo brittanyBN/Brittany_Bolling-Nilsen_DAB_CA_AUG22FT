@@ -1,19 +1,49 @@
-async function adoptAnimal(id){
-    const response = await fetch(`/animals/${id}` , {
-    method: 'PATCH',
+async function adoptAnimal(animalId, url) {
+    let adoptionStatus = true;
+    const response = await fetch(url, {
+        method: 'PATCH',
         headers: {
-        'Content-type': 'application/json'
-    },
-});
-if (response.status === 401) {
-    alert("Animal already adopted")
-}
-const resData = 'Made adoption';
-location.reload()
-return resData;
+            'Content-type': 'application/json'
+        },
+        body: JSON.stringify({
+            adopted: adoptionStatus,
+            id: animalId
+        })
+    }).then((response) => {
+        if (response.ok) {
+            const resData = 'Animal updated...';
+            location.reload()
+            return Promise.resolve(resData);
+        }
+        return Promise.reject(response);
+    })
+        .catch((response) => {
+            alert(response.statusText);
+        });
 }
 
-function deleteAnimal(id){
+async function deleteAnimal(animalId, url) {
+    let returnAdoptionStatus = false;
+    const response = await fetch(url, {
+        method: 'PATCH',
+        headers: {
+            'Content-type': 'application/json'
+        },
+        body: JSON.stringify({
+            adopted: returnAdoptionStatus,
+            id: animalId
+        })
+    }).then((response) => {
+        if (response.ok) {
+            const resData = 'Animal updated...';
+            location.reload()
+            return Promise.resolve(resData);
+        }
+        return Promise.reject(response);
+    })
+        .catch((response) => {
+            alert(response.statusText);
+        });
 }
 
 async function addSpecies(url) {
@@ -26,32 +56,9 @@ async function addSpecies(url) {
         body: JSON.stringify({
             name: newSpecies
         })
-    });
-    if (!response.ok) {
-        throw new Error('Failed to create species');
-    }
-    const resData = await response.json();
-    location.reload()
-    return resData;
-}
-
-
-function updateSpecies(id){
-    newSpecies = prompt("Update species")
-}
-
-async function deleteSpecies(speciesId, url) {
-    await fetch(url, {
-        method: 'DELETE',
-        headers: {
-            'Content-type': 'application/json'
-        },
-        body: JSON.stringify({
-            id: speciesId
-        })
     }).then((response) => {
         if (response.ok) {
-            const resData = 'Species deleted...';
+            const resData = 'New species added...';
             location.reload()
             return Promise.resolve(resData);
         }
@@ -60,66 +67,122 @@ async function deleteSpecies(speciesId, url) {
         .catch((response) => {
             alert(response.statusText);
         });
-}
 
 
-async function addTemperament(url) {
-    let newTemperament = prompt("Please provide a new species.")
-    const response = await fetch(url, {
-        method: 'POST',
-        headers: {
-            'Content-type': 'application/json'
-        },
-        body: JSON.stringify({
-            name: newTemperament
+    async function deleteSpecies(speciesId, url) {
+        await fetch(url, {
+            method: 'DELETE',
+            headers: {
+                'Content-type': 'application/json'
+            },
+            body: JSON.stringify({
+                id: speciesId
+            })
+        }).then((response) => {
+            if (response.ok) {
+                const resData = 'Species deleted...';
+                location.reload()
+                return Promise.resolve(resData);
+            }
+            return Promise.reject(response);
         })
-    });
-    if (!response.ok) {
-        throw new Error('Failed to create species');
+            .catch((response) => {
+                alert(response.statusText);
+            });
     }
-    const resData = await response.json();
-    location.reload()
-    return resData;
 }
 
-async function updateTemperament(url) {
-    let alterTemperament = prompt("Update temperament")    const response = await fetch(url, {
-        method: 'PATCH',
-        headers: {
-            'Content-type': 'application/json'
-        },
-        body: JSON.stringify({
-            name: alterTemperament
+    async function updateSpecies(speciesId, url) {
+        let alterSpecies = prompt("Update temperament");
+        const response = await fetch(url, {
+            method: 'PATCH',
+            headers: {
+                'Content-type': 'application/json'
+            },
+            body: JSON.stringify({
+                name: alterSpecies,
+                id: speciesId
+            })
+        }).then((response) => {
+            if (response.ok) {
+                const resData = 'Species updated...';
+                location.reload()
+                return Promise.resolve(resData);
+            }
+            return Promise.reject(response);
         })
-    });
-    if (!response.ok) {
-        throw new Error('Failed to create species');
+            .catch((response) => {
+                alert(response.statusText);
+            });
     }
-    const resData = await response.json();
-    location.reload()
-    return resData;
-}
 
-async function deleteTemperament(tempId, url) {
-    await fetch(url, {
-        method: 'DELETE',
-        headers: {
-            'Content-type': 'application/json'
-        },
-        body: JSON.stringify({
-            id: tempId
+    async function addTemperament(url) {
+        let newTemperament = prompt("Please provide a new species.")
+        const response = await fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-type': 'application/json'
+            },
+            body: JSON.stringify({
+                name: newTemperament
+            })
+        }).then((response) => {
+            if (response.ok) {
+                const resData = 'Temperament added...';
+                location.reload()
+                return Promise.resolve(resData);
+            }
+            return Promise.reject(response);
         })
-    }).then((response) => {
-        if (response.ok) {
-            const resData = 'Temperament deleted...';
-            location.reload()
-            return Promise.resolve(resData);
-        }
-        return Promise.reject(response);
-    })
-        .catch((response) => {
-            alert(response.statusText);
-        });
-}
+            .catch((response) => {
+                alert(response.statusText);
+            });
+    }
+
+    async function updateTemperament(tempId, url) {
+        let alterTemperament = prompt("Update temperament");
+        const response = await fetch(url, {
+            method: 'PATCH',
+            headers: {
+                'Content-type': 'application/json'
+            },
+            body: JSON.stringify({
+                name: alterTemperament,
+                id: tempId
+            })
+        }).then((response) => {
+            if (response.ok) {
+                const resData = 'Temperament updated...';
+                location.reload()
+                return Promise.resolve(resData);
+            }
+            return Promise.reject(response);
+        })
+            .catch((response) => {
+                alert(response.statusText);
+            });
+    }
+
+    async function deleteTemperament(tempId, url) {
+        await fetch(url, {
+            method: 'DELETE',
+            headers: {
+                'Content-type': 'application/json'
+            },
+            body: JSON.stringify({
+                id: tempId
+            })
+        }).then((response) => {
+            if (response.ok) {
+                const resData = 'Temperament deleted...';
+                location.reload()
+                return Promise.resolve(resData);
+            }
+            return Promise.reject(response);
+        })
+            .catch((response) => {
+                alert(response.statusText);
+            });
+    }
 
 
