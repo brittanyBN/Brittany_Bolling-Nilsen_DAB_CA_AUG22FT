@@ -1,6 +1,12 @@
 # DAB - Course Assignment 1
 # Application Installation and Usage Instructions
+To run this project, you will need a web browser and a local web server.
 
+Clone or download the repository to your local machine.
+Run npm install to install the required packages and dependencies.
+Create a .env file in the root directory, use the .env-example file as a template.
+Run npm start to start the server.
+Open the browser and navigate to http://localhost:PORT Replace PORT with desired PORT number.
 
 # Environment Variables
 ADMIN_USERNAME=
