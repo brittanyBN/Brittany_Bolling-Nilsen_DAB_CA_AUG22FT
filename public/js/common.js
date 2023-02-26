@@ -31,7 +31,7 @@ async function deleteAnimal(animalId, url) {
         },
         body: JSON.stringify({
             adopted: returnAdoptionStatus,
-            id: animalId
+            id: animalId,
         })
     }).then((response) => {
         if (response.ok) {
@@ -67,7 +67,7 @@ async function addSpecies(url) {
         .catch((response) => {
             alert(response.statusText);
         });
-
+}
 
     async function deleteSpecies(speciesId, url) {
         await fetch(url, {
@@ -76,7 +76,7 @@ async function addSpecies(url) {
                 'Content-type': 'application/json'
             },
             body: JSON.stringify({
-                id: speciesId
+                id: speciesId,
             })
         }).then((response) => {
             if (response.ok) {
@@ -89,7 +89,6 @@ async function addSpecies(url) {
             .catch((response) => {
                 alert(response.statusText);
             });
-    }
 }
 
     async function updateSpecies(speciesId, url) {

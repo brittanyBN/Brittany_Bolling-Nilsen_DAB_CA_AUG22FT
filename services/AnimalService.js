@@ -50,6 +50,11 @@ class AnimalService {
 
     async updateAnimal(animalId, adoptionStatus) {
         const animal = await this.getAnimalById(animalId);
+
+        if (animal > 0) {
+            alert("Cannot adopt this animal, it is already adopted");
+            return
+        }
         let adoption = adoptionStatus
         console.log("animalId: " + animalId);
         animal.adopted = true;
@@ -65,6 +70,11 @@ class AnimalService {
 
     async returnAnimal(animalId, adoptionStatus) {
         const returnAnimal = await this.getAnimalById(animalId);
+
+        if (returnAnimal > 0) {
+            alert("Cannot cancel this adoption, it is already cancelled");
+            return
+        }
         let adoption = adoptionStatus
         console.log("animalId: " + animalId);
         returnAnimal.adopted = false;

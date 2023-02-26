@@ -2,6 +2,7 @@ class TemperamentService {
     constructor(db) {
         this.client = db.sequelize;
         this.Temperament = db.Temperament;
+        this.AnimalTemperament = db.AnimalTemperament;
         console.log(db);
     }
 
@@ -20,6 +21,12 @@ class TemperamentService {
     }
 
     async deleteTemperament(TemperamentId) {
+        const animalCount = await this.getAnimalCountByTemperamentId(animalTemperamentId);
+
+        if (animalCount > 0) {
+            alert("Cannot update temperament because animals exist with this temperament ID");
+            return
+        }
         return this.Temperament.destroy({
             where: {id: TemperamentId}
         })
@@ -27,7 +34,7 @@ class TemperamentService {
 
     async updateTemperament(TemperamentId, newName) {
         console.log("TemperamentId: " + TemperamentId);
-        let temperament = await this.getTemperamentById(TemperamentId);
+        const temperament = await this.getTemperamentById(TemperamentId);
         temperament.name = newName;
         await temperament.save()
     .then((response) => {
@@ -37,6 +44,12 @@ class TemperamentService {
             .catch((response) => {
                 alert(response.statusText);
             });
+    }
+
+    async getAnimalCountByTemperamentId(animalTemperamentId) {
+        return await this.AnimalTemperament.count({
+            where: {TemperamentId: animalTemperamentId}
+        });
     }
 
     async getTemperamentById(tempId) {

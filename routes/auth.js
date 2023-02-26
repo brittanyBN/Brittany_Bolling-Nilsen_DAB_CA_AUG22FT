@@ -28,6 +28,7 @@ passport.deserializeUser(function(user, cb) {
 });
 
 router.get('/login', function(req, res, next) {
+    const username = req.user?.username;
     res.render('login',{ user: req.user, username: req.username})
 });
 

@@ -3,6 +3,7 @@ const AnimalService = require("../services/AnimalService");
 const router = express.Router();
 const db = require("../models");
 const animalService = new AnimalService(db);
+const isAdmin = require('../routes/authMiddlewares');
 
 const bodyParser = require('body-parser')
 const jsonParser = bodyParser.json()
@@ -12,7 +13,7 @@ router.get('/', async function (req, res, next) {
   res.render('animals', { title: 'Animals', user: req.user, animals: animals});
 });
 
-router.post('/', jsonParser, async function(req, res, next) {
+router.post('/', isAdmin, jsonParser, async function(req, res, next) {
   let Id = req.body.Id;
   let Name = req.body.Name;
   let Birthday = req.body.Birthday;
@@ -20,7 +21,7 @@ router.post('/', jsonParser, async function(req, res, next) {
   res.end()
 });
 
-  router.patch('/adopt', async function (req,res,next) {
+  router.patch('/adopt', isAdmin, async function (req,res,next) {
     let animalId = req.body.id;
     console.log(animalId);
     let adoptionStatus = req.body.adopted;
@@ -36,7 +37,7 @@ router.post('/', jsonParser, async function(req, res, next) {
     res.end()
   });
 
-router.patch('/cancel', async function (req,res,next) {
+router.patch('/cancel', isAdmin, async function (req,res,next) {
   let animalId = req.body.id;
   console.log(animalId);
   let adoptionStatus = req.body.adopted;

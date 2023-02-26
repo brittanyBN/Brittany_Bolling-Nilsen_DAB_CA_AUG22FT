@@ -40,6 +40,18 @@ class UserService {
         });
     }
 
+    async getUserById(userId) {
+        return await this.User.findByPk(userId, {
+            include: [
+                {
+                    model: this.client.models.Role,
+                    attributes: ['role']
+                },
+            ]
+
+        })
+    }
+
     async deleteUser(userId) {
         return this.User.destroy({
             where: {id: userId}

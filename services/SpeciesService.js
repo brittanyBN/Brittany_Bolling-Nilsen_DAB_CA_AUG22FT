@@ -28,7 +28,7 @@ class SpeciesService {
             alert("Cannot update species because animals exist with this species ID");
             return
         }
-            const species = await this.getSpeciesById(SpeciesId);
+        const species = await this.getSpeciesById(SpeciesId);
         species.name = newName;
         await species.save()
             .then((response) => {
@@ -42,11 +42,9 @@ class SpeciesService {
 
 
     async getAnimalCountBySpeciesId(animalSpeciesId) {
-        const count = await this.Animal.count({
-            where: { speciesId: animalSpeciesId }
+        return await this.Animal.count({
+            where: {speciesId: animalSpeciesId}
         });
-
-        return count;
     }
 
     async getSpeciesById(speciesId) {
