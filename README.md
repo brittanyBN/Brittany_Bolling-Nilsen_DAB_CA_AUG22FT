@@ -25,6 +25,7 @@ PassportJS
 express-session
 connect-sqlite3
 nodemon
+dotenv
 
 # NodeJS Version Used
 v19.5.0

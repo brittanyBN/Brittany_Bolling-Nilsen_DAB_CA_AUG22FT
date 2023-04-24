@@ -8,7 +8,7 @@ module.exports = (sequelize, DataTypes) => {
     });
 
     Animal.associate = function(models) {
-        Animal.belongsToMany(models.Temperament, { through: 'AnimalTemperament'});
+        Animal.belongsToMany(models.Temperament, { through: 'AnimalTemperament', timestamps: false });
         Animal.belongsTo(models.Species);
         Animal.belongsTo(models.Size);
         Animal.belongsTo(models.User);

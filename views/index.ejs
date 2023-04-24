@@ -9,18 +9,14 @@
 </head>
 
 <body>
+<%- include('./partials/navbar.ejs', {variant: user}) %>
   <div class="container-fluid mt-5 text-center">
-
-    <%- include('./partials/navbar.ejs', {variant: user}) %>
-      <h1>
-        DAB - Adopt an Animal Course Assignment
-      </h1>
-      <p>Welcome to the course assignment for DAB
-      </p>
+      <h1 class="p-3 text-center">DAB - Adopt an Animal Course Assignment</h1>
+      <p>Welcome to the course assignment for DAB</p>
       <div>
         <img src="/img/home.png" alt="">
       </div>
-      </container>
+  </div>
 </body>
 
 </html>

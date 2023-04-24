@@ -21,7 +21,7 @@ router.post('/', isAdmin, jsonParser, async function(req, res, next) {
   res.end()
 });
 
-  router.patch('/adopt', isAdmin, async function (req,res,next) {
+  router.patch('/adopt', async function (req,res,next) {
     let animalId = req.body.id;
     console.log(animalId);
     let adoptionStatus = req.body.adopted;
