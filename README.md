@@ -9,23 +9,23 @@ Run npm start to start the server.
 Open the browser and navigate to http://localhost:PORT Replace PORT with desired PORT number.
 
 # Environment Variables
-ADMIN_USERNAME=
-ADMIN_PASSWORD=
-DATABASE_NAME=
-DIALECT=
-DIALECTMODEL=
-PORT=
-HOST=
+- ADMIN_USERNAME=
+- ADMIN_PASSWORD=
+- DATABASE_NAME=
+- DIALECT=
+- DIALECTMODEL=
+- PORT=
+- HOST=
 
 # Additional Libraries/Packages
-sequelize@6.28.0
-mysql@2.18.1
-mysql2@3.1.0
-PassportJS
-express-session
-connect-sqlite3
-nodemon
-dotenv
+- sequelize@6.28.0
+- mysql@2.18.1
+- mysql2@3.1.0
+- PassportJS
+- express-session
+- connect-sqlite3
+- nodemon
+- dotenv
 
 # NodeJS Version Used
 v19.5.0
