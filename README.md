@@ -1,4 +1,6 @@
 # DAB - Course Assignment 1
+
+This was an assignment for the course Databases Noroff. The views files were already created, and I completed the entire backend of the application. 
 # Application Installation and Usage Instructions
 To run this project, you will need a web browser and a local web server.
 
