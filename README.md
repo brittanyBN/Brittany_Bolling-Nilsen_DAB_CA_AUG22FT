@@ -1,5 +1,4 @@
 # DAB - Course Assignment 1
-
 This was an assignment for the course Databases Noroff. The views files were already created, and I completed the entire backend of the application. 
 # Application Installation and Usage Instructions
 To run this project, you will need a web browser and a local web server.
@@ -9,6 +8,8 @@ Run npm install to install the required packages and dependencies.
 Create a .env file in the root directory, use the .env-example file as a template.
 Run npm start to start the server.
 Open the browser and navigate to http://localhost:PORT Replace PORT with desired PORT number.
+
+To create a new user with admin privileges, change 'role' to admin in the auth.js file
 
 # Environment Variables
 - ADMIN_USERNAME=

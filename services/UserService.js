@@ -3,16 +3,16 @@ class UserService {
         this.client = db.sequelize;
         this.User = db.User;
         this.Adoption = db.Adoption;
-        this.Role = db.Role;
     }
 
-    async create(firstname, lastname, username, password) {
+    async create(firstname, lastname, username, password, role) {
         return this.User.create(
             {
                 firstname: firstname,
                 lastname: lastname,
                 username: username,
                 password: password,
+                role: role
             }
         )
     }
@@ -25,31 +25,18 @@ class UserService {
 
     async getOne(userId) {
         return await this.User.findOne({
-            where: {id: userId},
-            include: {
-                model: this.Role
-            }
+            where: {id: userId}
         });
     }
+
     async getOneByName(username) {
         return await this.User.findOne({
-            where: {username: username},
-            include: {
-                model: this.Role
-            }
+            where: {username: username}
         });
     }
 
     async getUserById(userId) {
-        return await this.User.findByPk(userId, {
-            include: [
-                {
-                    model: this.client.models.Role,
-                    attributes: ['role']
-                },
-            ]
-
-        })
+        return await this.User.findByPk(userId)
     }
 
     async deleteUser(userId) {

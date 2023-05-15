@@ -3,7 +3,7 @@ const AnimalService = require("../services/AnimalService");
 const router = express.Router();
 const db = require("../models");
 const animalService = new AnimalService(db);
-const isAdmin = require('../routes/authMiddlewares');
+const isAdmin = require('../middleware/authMiddlewares');
 
 const bodyParser = require('body-parser')
 const jsonParser = bodyParser.json()

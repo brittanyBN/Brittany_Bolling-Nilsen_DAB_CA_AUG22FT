@@ -3,7 +3,7 @@ const TemperamentService = require("../services/TemperamentService");
 const router = express.Router();
 const db = require("../models");
 const temperamentService = new TemperamentService(db);
-const isAdmin = require('../routes/authMiddlewares');
+const isAdmin = require('../middleware/authMiddlewares');
 
 const bodyParser = require('body-parser')
 const jsonParser = bodyParser.json()

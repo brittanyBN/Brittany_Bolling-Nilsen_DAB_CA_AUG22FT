@@ -8,7 +8,7 @@ const router = express.Router();
 
 passport.use(new LocalStrategy(function verify(username, password, cb) {
     userService.getOneByName(username).then((data) => {
-        if(data === null) {
+        if (data === null) {
             return cb(null, false, { message: 'Incorrect username or password.' });
         }
         return cb(null, data);
@@ -29,7 +29,7 @@ passport.deserializeUser(function(user, cb) {
 
 router.get('/login', function(req, res, next) {
     const username = req.user?.username;
-    res.render('login',{ user: req.user, username: req.username})
+    res.render('login', { user: req.user, username: req.username })
 });
 
 router.post('/login/password', passport.authenticate('local', {
@@ -46,11 +46,12 @@ router.post('/logout', function(req, res, next) {
 });
 
 router.get('/signup', function(req, res, next) {
-    res.render('signup',{ user: req.user})
+    res.render('signup', { user: req.user })
 });
 
 router.post('/signup', function(req, res, next) {
-    userService.create(req.body.firstname, req.body.lastname, req.body.username, req.body.password).then((data) => {
+    const role = 'member';
+    userService.create(req.body.firstname, req.body.lastname, req.body.username, req.body.password, role).then((data) => {
         res.redirect('/login');
     });
 });
